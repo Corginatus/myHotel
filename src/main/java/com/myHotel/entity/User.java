@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -27,35 +28,6 @@ class User implements UserDetails {
     private String passwordConfirm;
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-
-//    @OneToMany(mappedBy = "user")
-//    private List<Hotel> hotels;
-
-//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinColumn(name = "t_user_id")
-//    private List<Hotel> hotelList = new ArrayList<>();
-//
-//    public List<Hotel> getHotelList() {
-//        return hotelList;
-//    }
-//
-//    public void setHotelList(List<Hotel> hotelList) {
-//        this.hotelList = hotelList;
-//    }
-//    @OneToMany(mappedBy = "post",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true)
-//    private List<Hotel> hotel_list = new ArrayList<>();
-//
-//    public void addHotel(Hotel hotel) {
-//        hotel_list.add(hotel);
-////        hotel.setHotel(this);
-//    }
-//
-//    public void removeHotel(Hotel hotel) {
-//        hotel_list.remove(hotel);
-////        comment.setPost(null);
-//    }
 
     public User() {
     }

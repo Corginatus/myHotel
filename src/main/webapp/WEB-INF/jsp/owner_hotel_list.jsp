@@ -9,6 +9,7 @@
         <th scope="col">Id</th>
         <th scope="col">Hotel name</th>
         <th scope="col">Rooms</th>
+        <th scope="col">Owner</th>
     </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
             <th scope="row">${hotel.id}</th>
             <td>${hotel.name}</td>
             <td>${hotel.rooms}</td>
+            <td>${hotel.owner.username}</td>
         </tr>
     </c:forEach>
     </tbody>

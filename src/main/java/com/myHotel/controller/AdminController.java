@@ -4,30 +4,28 @@ import com.myHotel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/admin")
+    @GetMapping("/users")
     public String userList(Model model) {
         model.addAttribute("allUsers", userService.allUsers());
         return "admin";
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/users")
     public String  deleteUser(@RequestParam(required = true, defaultValue = "" ) Long userId,
                               @RequestParam(required = true, defaultValue = "" ) String action,
                               Model model) {
         if (action.equals("delete")){
             userService.deleteUser(userId);
         }
-        return "redirect:/admin";
+        return "redirect:/admin/users";
     }
 
     @GetMapping("/admin/gt/{userId}")

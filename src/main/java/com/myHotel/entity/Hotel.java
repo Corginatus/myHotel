@@ -22,7 +22,7 @@ public class Hotel {
 
     private int rooms;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="owner_id")
     private User owner;
 

@@ -5,6 +5,7 @@ import com.myHotel.entity.User;
 import com.myHotel.service.HotelService;
 import com.myHotel.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,16 +33,13 @@ public class MyOwnerController {
 
     @PostMapping("/create_hotel")
     public ModelAndView createHotelFinish(ModelAndView model,
-//                                            User owner,
-//                                          Principal principal,
+                                          @AuthenticationPrincipal User owner,
                                           @RequestParam(name = "name") String name,
                                           @RequestParam(name = "rooms") int rooms) {
         Hotel hotel = new Hotel();
         hotel.setRooms(rooms);
         hotel.setName(name);
-//        hotel.setOwner(owner);
-//        userService.saveHotel(hotel);
-//        hotel.setOwner(userService.getCurrentUser(principal));
+        hotel.setOwner(owner);
         model.addObject("hotel", hotelService.createHotel(hotel));
         model.setViewName("owner_home");
         return model;
@@ -54,8 +52,8 @@ public class MyOwnerController {
     }
 
     @GetMapping("/hotel_list")
-    public ModelAndView hotelList(ModelAndView model) {
-        List<Hotel> hotelList = hotelService.getAll();
+    public ModelAndView hotelList(ModelAndView model, @AuthenticationPrincipal User owner) {
+        List<Hotel> hotelList = hotelService.getByOwner(owner);
         model.addObject("hotelList", hotelList);
         model.setViewName("owner_hotel_list");
         return model;
