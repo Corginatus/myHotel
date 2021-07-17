@@ -33,29 +33,27 @@
                 ${passwordError}
         </div>
 
-        <fieldset class="row mb-3">
-            <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
-            <div class="col-sm-10">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option2">
-                    <label class="form-check-label" for="gridRadios2">
-                        owner
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                    <label class="form-check-label" for="gridRadios2">
-                        worker
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option2">
-                    <label class="form-check-label" for="gridRadios2">
-                        visitor
-                    </label>
-                </div>
+
+        <div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="myStatus" id="OWNER" checked value="OWNER">
+                <label class="form-check-label" for="OWNER">
+                    OWNER
+                </label>
             </div>
-        </fieldset>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="myStatus" id="WORKER" checked value="WORKER">
+                <label class="form-check-label" for="WORKER">
+                    WORKER
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="myStatus" id="VISITOR" checked value="VISITOR">
+                <label class="form-check-label" for="VISITOR">
+                    VISITOR
+                </label>
+            </div>
+        </div>
         <button type="submit">Зарегистрироваться</button>
     </form:form>
     <a href="/">Главная</a>

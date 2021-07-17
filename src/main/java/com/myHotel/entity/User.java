@@ -1,5 +1,6 @@
 package com.myHotel.entity;
 
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,7 +13,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "t_user")
-public class User implements UserDetails {
+public @Data
+class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,17 +28,20 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "t_user_id")
-    private List<Hotel> hotelList = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Hotel> hotels;
 
-    public List<Hotel> getHotelList() {
-        return hotelList;
-    }
-
-    public void setHotelList(List<Hotel> hotelList) {
-        this.hotelList = hotelList;
-    }
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "t_user_id")
+//    private List<Hotel> hotelList = new ArrayList<>();
+//
+//    public List<Hotel> getHotelList() {
+//        return hotelList;
+//    }
+//
+//    public void setHotelList(List<Hotel> hotelList) {
+//        this.hotelList = hotelList;
+//    }
 //    @OneToMany(mappedBy = "post",
 //            cascade = CascadeType.ALL,
 //            orphanRemoval = true)

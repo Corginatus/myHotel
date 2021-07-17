@@ -2,6 +2,6 @@
 
 <html>
 <body>
-<h1>${name}, welcome to myHotel!</h1>
+<h1>${pageContext.request.userPrincipal.name}, welcome to myHotel!</h1>
 </body>
 </html>

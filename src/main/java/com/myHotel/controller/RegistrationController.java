@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -26,7 +27,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model, boolean gridRadios1) {
+    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model, @RequestParam String myStatus) {
 
         if (bindingResult.hasErrors()) {
             return "registration";
@@ -35,20 +36,24 @@ public class RegistrationController {
             model.addAttribute("passwordError", "Пароли не совпадают");
             return "registration";
         }
-
-        if (gridRadios1 == true) {
-            if (!userService.saveOwner(userForm)){
-                model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-                return "registration";
-            }
+        switch (myStatus) {
+            case "OWNER":
+                if (!userService.saveOwner(userForm)){
+                    model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+                    return "registration";
+                }
+                break;
+            case "WORKER":
+                if (!userService.saveWorker(userForm)){
+                    model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+                    return "registration";
+                }
+            case "VISITOR":
+                if (!userService.saveVisitor(userForm)){
+                    model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+                    return "registration";
+                }
         }
-        else {
-            if (!userService.saveVisitor(userForm)){
-                model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-                return "registration";
-            }
-        }
-
 
         return "redirect:/";
     }

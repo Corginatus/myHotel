@@ -34,10 +34,10 @@
                         Hotel
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/owner/all_hotels">My hotels</a></li>
+                        <li><a class="dropdown-item" href="/owner/hotel_list">My hotels</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/owner/create_hotels">Add new hotel</a></li>
+                        <li><a class="dropdown-item" href="/owner/create_hotel">Add new hotel</a></li>
                     </ul>
                 </li>
 

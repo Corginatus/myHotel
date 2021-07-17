@@ -5,20 +5,28 @@ import com.myHotel.entity.Role;
 import com.myHotel.entity.User;
 import com.myHotel.repository.RoleRepository;
 import com.myHotel.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.IOException;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Data
+@AllArgsConstructor
 public class UserService implements UserDetailsService {
     @PersistenceContext
     private EntityManager em;
@@ -40,6 +48,13 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public User getCurrentUser(Principal principal) {
+
+        return ((User) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal());
+    }
+
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
@@ -59,7 +74,7 @@ public class UserService implements UserDetailsService {
         if (userFromDB != null) {
             return false;
         }
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
