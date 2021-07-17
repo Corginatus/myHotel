@@ -1,0 +1,17 @@
+com\myHotel\entity\User.class
+com\myHotel\service\RoleService.class
+com\myHotel\repository\RoleRepository.class
+com\myHotel\entity\Hotel.class
+com\myHotel\entity\Role.class
+com\myHotel\repository\HotelRepository.class
+com\myHotel\Application.class
+com\myHotel\config\MvcConfig.class
+com\myHotel\controller\AdminController.class
+com\myHotel\controller\MyOwnerController.class
+com\myHotel\config\WebSecurityConfig.class
+com\myHotel\repository\UserRepository.class
+com\myHotel\service\HotelService.class
+com\myHotel\controller\MyWorkerController.class
+com\myHotel\controller\RegistrationController.class
+com\myHotel\service\UserService.class
+com\myHotel\controller\MyVisitorController.class
