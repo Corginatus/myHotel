@@ -13,4 +13,5 @@ import java.util.List;
 public interface HotelRepository extends CrudRepository<Hotel, Integer> {
 //    List<Hotel> findAllByOwner(Long owner);
     List<Hotel> findHotelByOwner(User owner);
+
 }

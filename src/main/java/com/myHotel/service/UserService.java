@@ -60,11 +60,6 @@ public class UserService implements UserDetailsService {
         return userFromDb.orElse(new User());
     }
 
-//    public boolean addHotel(Hotel hotel, Long userId) {
-//        userRepository.findById(userId).
-//        return true;
-//    }
-
     public List<User> allUsers() {
         return userRepository.findAll();
     }
@@ -113,5 +108,9 @@ public class UserService implements UserDetailsService {
     public List<User> usergtList(Long idMin) {
         return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
+    }
+
+    public User findByUsername(String owner) {
+        return userRepository.findByUsername(owner);
     }
 }

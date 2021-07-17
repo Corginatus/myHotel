@@ -36,7 +36,7 @@
             </tr>
         </c:forEach>
     </table>
-    <a href="/">Главная</a>
+    <a href="/admin">Назад</a>
 </div>
 </body>
 </html>
