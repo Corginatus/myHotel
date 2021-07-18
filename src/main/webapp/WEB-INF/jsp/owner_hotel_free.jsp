@@ -12,6 +12,7 @@
 
 <body>
 <div>
+    <th>Продаются отели:</th>
     <table>
         <thead>
         <th>Hotel name</th>
@@ -19,25 +20,17 @@
         <c:forEach items="${hotelList}" var="hotel">
             <tr>
                 <td>${hotel.name}</td>
-                <c:if test="${hotel.isSale()}">
+
+                <c:if test="${hotel.owner != 'myOwner'}">
                     <td>
-                        <form action="/owner/hotel_sell" method="post">
-                            <input type="hidden" name="action" value="return"/>
+                        <form action="/owner/hotel_free" method="post">
                             <input type="hidden" name="hotel" value="${hotel.id}"/>
-                            <button type="submit">Return</button>
-                        </form>
-                    </td>
-                </c:if>
-                <c:if test="${!hotel.isSale()}">
-                    <td>
-                        <form action="/owner/hotel_sell" method="post">
-                            <input type="hidden" name="action" value="sell"/>
-                            <input type="hidden" name="hotel" value="${hotel.id}"/>
-                            <button type="submit">Sell</button>
+                            <button type="submit">Купить</button>
                         </form>
                     </td>
                 </c:if>
             </tr>
+
         </c:forEach>
     </table>
     <a href="/owner/home">Назад</a>

@@ -29,10 +29,10 @@ public class Hotel {
     @OneToOne
     private User seller = null;
 
-    private boolean isSale = false;
+    private boolean Sale = false;
 
     public boolean isSale() {
-        return isSale;
+        return Sale;
     }
 
     public Hotel getHotel() {
@@ -40,7 +40,7 @@ public class Hotel {
     }
 
     public void setSale(boolean sale) {
-        isSale = sale;
+        Sale = sale;
     }
 
     public Long getId() {

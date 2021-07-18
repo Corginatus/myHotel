@@ -2,6 +2,7 @@ package com.myHotel.controller;
 
 import com.myHotel.entity.Hotel;
 import com.myHotel.entity.User;
+import com.myHotel.service.HotelInfoService;
 import com.myHotel.service.HotelService;
 import com.myHotel.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -22,6 +24,8 @@ import java.util.List;
 public class MyOwnerController {
 
     private final HotelService hotelService;
+
+    private final HotelInfoService hotelInfoService;
 
     private final UserService userService;
 
@@ -32,20 +36,35 @@ public class MyOwnerController {
         return model;
     }
 
+    @GetMapping("/hotel_free")
+    public ModelAndView freeHotels(ModelAndView model, @AuthenticationPrincipal User owner) {
+        List<Hotel> hotelList = hotelService.getByIsSale();
+        model.addObject("hotelList", hotelList);
+        model.addObject("myOwner", owner);
+        model.setViewName("owner_hotel_free");
+        return model;
+    }
+
+    @PostMapping("/hotel_free")
+    public String sellHotel(@AuthenticationPrincipal User buyer,
+                              @RequestParam(name = "hotel") Long hotelId) {
+        Date date = new Date();
+        Hotel hotel = hotelService.getById(hotelId);
+        hotelInfoService.createInfo(date.toString(),hotel, buyer, hotel.getOwner());
+        hotelService.hotelBuy(buyer, hotelId);
+        return "redirect:/owner/home";
+    }
+
     @PostMapping("/hotel_sell")
     public String updateHotel(@AuthenticationPrincipal User seller,
-//                              @RequestParam(name = "hotel") Hotel hotel,
                               @RequestParam(name = "hotel") Long hotelId,
                               @RequestParam(required = true, defaultValue = "" ) String action,
                               Model model) {
-        System.out.println("----------------------------------START------------------------------------");
         if (action.equals("sell")) {
             hotelService.hotelSell(seller, hotelId);
-            System.out.println("//////////////////////////////////" + hotelId + "//////////////////////////////////");
         }
         if (action.equals("return")) {
             hotelService.hotelReturn(hotelId);
-            System.out.println("----------------------------------" + hotelId + "----------------------------------");
         }
         return "redirect:/owner/hotel_sell";
     }
@@ -58,26 +77,6 @@ public class MyOwnerController {
         model.setViewName("owner_sell_hotel");
         return model;
     }
-
-//    @PostMapping("/create_hotel")
-//    public ModelAndView createHotelFinish(ModelAndView model,
-//                                          @AuthenticationPrincipal User owner,
-//                                          @RequestParam(name = "name") String name,
-//                                          @RequestParam(name = "rooms") int rooms) {
-//        Hotel hotel = new Hotel();
-//        hotel.setRooms(rooms);
-//        hotel.setName(name);
-//        hotel.setOwner(owner);
-//        model.addObject("hotel", hotelService.createHotel(hotel));
-//        model.setViewName("owner_home");
-//        return model;
-//    }
-//
-//    @GetMapping("/create_hotel")
-//    public ModelAndView createHotel(ModelAndView model, @ModelAttribute(name = "hotel") Hotel hotel) {
-//        model.setViewName("owner_create_hotel");
-//        return model;
-//    }
 
     @GetMapping("/hotel_list")
     public ModelAndView hotelList(ModelAndView model, @AuthenticationPrincipal User owner) {

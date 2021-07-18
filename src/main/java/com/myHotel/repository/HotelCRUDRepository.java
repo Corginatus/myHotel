@@ -13,14 +13,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface HotelRepository extends CrudRepository<Hotel, Integer> {
-//    List<Hotel> findAllByOwner(Long owner);
+public interface HotelCRUDRepository extends CrudRepository<Hotel, Integer> {
     List<Hotel> findHotelByOwner(User owner);
     Hotel findHotelByOwnerId(Long owner);
     Hotel findHotelById(Long id);
-
-
-//    @Modifying
-//    @Query("update Hotel h set h.seller = ?1, h.isSale = ?2 where h.id = ?3")
-//    void setHotelInfoById(User seller, boolean isSale, Long hotelId);
+    List<Hotel> findHotelBySellerIsNotNull();
 }

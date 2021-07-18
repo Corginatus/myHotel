@@ -14,7 +14,7 @@
     <h4><a href="/admin/users">Пользователи</a></h4>
     <h4><a href="/admin/hotels">Отели</a></h4>
     <h4><a href="/admin/hotel_add">Добавить отель</a></h4>
-    <h4><a href="/admin/hotel_info">История продаж/покупок</a></h4>
+    <h4><a href="/admin/hotel_history">История продаж/покупок</a></h4>
     <a href="/">Главная</a>
 </div>
 </body>

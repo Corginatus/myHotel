@@ -3,20 +3,17 @@ package com.myHotel.service;
 import com.myHotel.entity.Hotel;
 import com.myHotel.entity.User;
 import com.myHotel.repository.HotelJpaRepository;
-import com.myHotel.repository.HotelRepository;
-import com.myHotel.repository.UserRepository;
+import com.myHotel.repository.HotelCRUDRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class HotelService {
 
-    private final HotelRepository hotelRepository;
+    private final HotelCRUDRepository hotelRepository;
 
     private final HotelJpaRepository hotelJpaRepository;
 
@@ -38,6 +35,18 @@ public class HotelService {
         hotelRepository.save(hotel);
     }
 
+    public void hotelBuy(User buyer, Long hotelId) {
+        Hotel hotel = hotelRepository.findHotelById(hotelId);
+        hotel.setSeller(null);
+        hotel.setSale(false);
+        hotel.setOwner(buyer);
+        hotelRepository.save(hotel);
+    }
+
+    public Hotel getById(Long hotelId) {
+        return hotelRepository.findHotelById(hotelId);
+    }
+
     public void hotelReturn(Long hotelId) {
         Hotel hotel = hotelRepository.findHotelById(hotelId);
         hotel.setSeller(null);
@@ -47,6 +56,10 @@ public class HotelService {
 
     public List<Hotel> getByOwner(User owner) {
         return hotelRepository.findHotelByOwner(owner);
+    }
+
+    public List<Hotel> getByIsSale() {
+        return hotelRepository.findHotelBySellerIsNotNull();
     }
 
 }

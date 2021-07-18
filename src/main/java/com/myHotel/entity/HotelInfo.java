@@ -13,6 +13,10 @@ import javax.persistence.*;
 @Table(name = "t_hotel_info")
 public class HotelInfo {
 
+//
+//  Запись о продаже/покупке отеля
+//
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id; // Id операции
