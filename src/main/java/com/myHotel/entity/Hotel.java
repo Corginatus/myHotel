@@ -26,7 +26,60 @@ public class Hotel {
     @JoinColumn(name="owner_id")
     private User owner;
 
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    private User owner;
+    @OneToOne
+    private User seller = null;
 
+    private boolean isSale = false;
+
+    public boolean isSale() {
+        return isSale;
+    }
+
+    public Hotel getHotel() {
+        return this;
+    }
+
+    public void setSale(boolean sale) {
+        isSale = sale;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(int rooms) {
+        this.rooms = rooms;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public User getSeller() {
+        return seller;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
+    }
 }
