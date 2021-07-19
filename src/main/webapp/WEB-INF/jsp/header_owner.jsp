@@ -25,8 +25,17 @@
                     <a class="nav-link active" aria-current="page" href="/owner/home">Home</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/owner/workers">Workers</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Workers
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/owner/workers">My workers</a></li>
+                        <li><a class="dropdown-item" href="/owner/get_worker">Get an employee </a></li>
+                        <li><a class="dropdown-item" href="/owner/owner_jobs">My workplaces </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/owner/give_job">Give a job</a></li>
+                    </ul>
                 </li>
 
                 <li class="nav-item dropdown">

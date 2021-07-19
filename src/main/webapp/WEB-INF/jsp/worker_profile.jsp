@@ -26,7 +26,12 @@
 </div>
 <div>
     <jsp:text>Пол: </jsp:text>
-    <td>${worker.sex}</td>
+    <c:if test="${sex}">
+        <jsp:text>муж </jsp:text>
+    </c:if>
+    <c:if test="${!sex}">
+        <jsp:text>жен </jsp:text>
+    </c:if>
 </div>
 <div>
     <jsp:text>Опыт работы: </jsp:text>
@@ -36,7 +41,9 @@
     <jsp:text>Рабочий день: </jsp:text>
     <td>${worker.timeType}</td>
 </div>
-
+<div>
+    <a href="/worker/update">Обновить</a>
+</div>
 <div>
     <a href="/worker/home">Назад</a>
 </div>

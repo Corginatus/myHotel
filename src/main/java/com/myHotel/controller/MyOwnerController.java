@@ -1,10 +1,13 @@
 package com.myHotel.controller;
 
 import com.myHotel.entity.Hotel;
+import com.myHotel.entity.Owner;
 import com.myHotel.entity.User;
 import com.myHotel.service.HotelInfoService;
 import com.myHotel.service.HotelService;
+import com.myHotel.service.OwnerService;
 import com.myHotel.service.UserService;
+//import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -29,10 +32,41 @@ public class MyOwnerController {
 
     private final UserService userService;
 
+    private final OwnerService ownerService;
+
     @GetMapping("/home")
     public ModelAndView homePage(ModelAndView model, @RequestParam(defaultValue = "User") String name) {
         model.addObject("name", name);
         model.setViewName("owner_home");
+        return model;
+    }
+
+    @GetMapping("/owner_jobs")
+    public ModelAndView ownerJobs(@AuthenticationPrincipal User user,
+                                  ModelAndView model) {
+        model.addObject("owner", ownerService.findByUser(user));
+        model.setViewName("owner_jobs");
+        return model;
+    }
+
+    @GetMapping("/del_job")
+    public ModelAndView ownerDelJob(@AuthenticationPrincipal User user,
+                                    ModelAndView model) {
+        Owner owner = ownerService.findByUser(user);
+        if(owner.getFreeWorkplace()==0) {
+            model.setViewName("owner_home");
+            return model;
+        }
+        model.addObject("owner", ownerService.delWorkplace(user));
+        model.setViewName("owner_jobs");
+        return model;
+    }
+
+    @GetMapping("/give_job")
+    public ModelAndView give_job(@AuthenticationPrincipal User user,
+                                 ModelAndView model) {
+        model.addObject("owner", ownerService.addNewWorkplace(user));
+        model.setViewName("owner_jobs");
         return model;
     }
 
@@ -45,6 +79,11 @@ public class MyOwnerController {
         return model;
     }
 
+    @GetMapping("/help")
+    public String help(){
+        return "owner_help";
+    }
+
     @PostMapping("/hotel_free")
     public String sellHotel(@AuthenticationPrincipal User buyer,
                               @RequestParam(name = "hotel") Long hotelId) {
@@ -54,6 +93,8 @@ public class MyOwnerController {
         hotelService.hotelBuy(buyer, hotelId);
         return "redirect:/owner/home";
     }
+
+
 
     @PostMapping("/hotel_sell")
     public String updateHotel(@AuthenticationPrincipal User seller,

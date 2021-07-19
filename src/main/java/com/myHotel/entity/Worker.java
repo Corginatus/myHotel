@@ -24,6 +24,9 @@ public class Worker {
     @OneToOne
     private User employer;
 
+    @ManyToOne
+    private Hotel hotel;
+
     private String name;
 
     private String surname;
@@ -33,5 +36,6 @@ public class Worker {
     private boolean sex; // true - муж / false - жен
 
     private TimeType timeType;
+
 
 }

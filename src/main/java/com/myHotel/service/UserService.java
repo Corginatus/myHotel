@@ -1,8 +1,10 @@
 package com.myHotel.service;
 
 import com.myHotel.entity.Hotel;
+import com.myHotel.entity.Owner;
 import com.myHotel.entity.Role;
 import com.myHotel.entity.User;
+import com.myHotel.repository.OwnerRepository;
 import com.myHotel.repository.RoleRepository;
 import com.myHotel.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -36,6 +38,8 @@ public class UserService implements UserDetailsService {
     RoleRepository roleRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    OwnerRepository ownerRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -72,6 +76,9 @@ public class UserService implements UserDetailsService {
         user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        Owner owner = new Owner();
+        owner.setMyUser(user);
+        ownerRepository.save(owner);
         return true;
     }
 
@@ -113,4 +120,10 @@ public class UserService implements UserDetailsService {
     public User findByUsername(String owner) {
         return userRepository.findByUsername(owner);
     }
+
+//    public void addNewWorkplace(String username) {
+//        User user = userRepository.findByUsername(username);
+//        user.addNewWorkplace();
+//        userRepository.save(user);
+//    }
 }

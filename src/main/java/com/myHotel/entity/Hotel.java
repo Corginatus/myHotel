@@ -31,6 +31,10 @@ public class Hotel {
 
     private boolean Sale = false;
 
+
+
+
+
     public boolean isSale() {
         return Sale;
     }
@@ -39,9 +43,7 @@ public class Hotel {
         return this;
     }
 
-    public void setSale(boolean sale) {
-        Sale = sale;
-    }
+    public void setSale(boolean sale) { Sale = sale; }
 
     public Long getId() {
         return id;

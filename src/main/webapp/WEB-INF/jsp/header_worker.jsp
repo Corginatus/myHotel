@@ -37,7 +37,7 @@
                         <li><a class="dropdown-item" href="/owner/hotel_info">My hotel info</a></li>
                         <li><a class="dropdown-item" href="/owner/hotel_task">My tasks</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/owner/new_job">To get a new job</a></li>
+                        <li><a class="dropdown-item" href="/owner/new_job">Get a new job</a></li>
                     </ul>
                 </li>
 

@@ -29,6 +29,27 @@ public class MyWorkerController {
         return model;
     }
 
+    @GetMapping("/help")
+    public String help(){
+        return "worker_help";
+    }
+
+    @PostMapping("/update")
+    public String updateProfile(@RequestParam int ex,
+                                      @RequestParam String name,
+                                      @RequestParam String surname,
+                                      @RequestParam TimeType timeType,
+                                      @AuthenticationPrincipal User myUser) {
+        workerService.update(ex, name, surname, timeType, myUser);
+        return "redirect:/worker/home";
+    }
+
+    @GetMapping("/update")
+    public ModelAndView edit(ModelAndView model, @AuthenticationPrincipal User user) {
+        model.addObject("worker", workerService.findByUser(user));
+        model.setViewName("worker_edit_info");
+        return model;
+    }
 
     @GetMapping("/profile")
     public ModelAndView profile(ModelAndView model, @AuthenticationPrincipal User user) {
@@ -49,15 +70,25 @@ public class MyWorkerController {
                                       @RequestParam int ex,
                                       @RequestParam String name,
                                       @RequestParam String surname,
-                                      @RequestParam String sex,
+                                      @RequestParam String human,
                                       @RequestParam TimeType timeType,
                                       @AuthenticationPrincipal User myUser) {
-        Worker worker = new Worker();
+        Worker worker = workerService.findByUser(myUser);
         worker.setMyUser(myUser);
         worker.setEx(ex);
         worker.setName(name);
         worker.setSurname(surname);
-        worker.setSex((sex == "MAN") ? true : false);
+        switch (human) {
+            case "MAN":
+                worker.setSex(true);
+                break;
+            case "FEMALE":
+                worker.setSex(false);
+                break;
+            default:
+                return model;
+        }
+//        worker.setSex((human == "MAN") ? true : false);
         worker.setTimeType(timeType);
         model.addObject("worker", workerService.save(worker));
         model.setViewName("worker_home");
