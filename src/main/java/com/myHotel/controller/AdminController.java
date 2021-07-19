@@ -49,7 +49,7 @@ public class AdminController {
         hotel.setName(name);
         hotel.setOwner(userService.findByUsername(owner));
         model.addObject("hotel", hotelService.createHotel(hotel));
-        model.setViewName("admin_users");
+        model.setViewName("admin_panel");
         return model;
     }
 

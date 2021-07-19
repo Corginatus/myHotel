@@ -16,8 +16,7 @@
         <h2>Регистрация</h2>
 
         <div>
-            <form:input type="text" path="username" placeholder="Username"
-                        autofocus="true"></form:input>
+            <form:input type="text" path="username" placeholder="Username" autofocus="true"></form:input>
             <form:errors path="username"></form:errors>
                 ${usernameError}
         </div>
