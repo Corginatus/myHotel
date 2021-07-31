@@ -32,4 +32,9 @@ public class WorkerService {
         workerRepository.save(worker);
     }
 
+    public void addOwner(User owner, Worker worker) {
+        worker.setEmployer(owner);
+        workerRepository.save(worker);
+    }
+
 }

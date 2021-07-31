@@ -25,15 +25,6 @@
     <td>${worker.surname}</td>
 </div>
 <div>
-    <jsp:text>Пол: </jsp:text>
-    <c:if test="${sex}">
-        <jsp:text>муж </jsp:text>
-    </c:if>
-    <c:if test="${!sex}">
-        <jsp:text>жен </jsp:text>
-    </c:if>
-</div>
-<div>
     <jsp:text>Опыт работы: </jsp:text>
     <td>${worker.ex}</td>
 </div>

@@ -36,4 +36,5 @@ public class Owner {
     public void addNewWorker() {
         this.freeWorkplace--;
     }
+
 }

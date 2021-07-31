@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -21,7 +20,7 @@ public class Worker {
     @OneToOne
     private User myUser;
 
-    @OneToOne
+    @ManyToOne
     private User employer;
 
     @ManyToOne
@@ -33,9 +32,8 @@ public class Worker {
 
     private int ex; // опыт работы
 
-    private boolean sex; // true - муж / false - жен
-
     private TimeType timeType;
+
 
 
 }

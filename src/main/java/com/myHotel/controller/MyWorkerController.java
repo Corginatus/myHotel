@@ -4,6 +4,8 @@ import com.myHotel.entity.Hotel;
 import com.myHotel.entity.TimeType;
 import com.myHotel.entity.User;
 import com.myHotel.entity.Worker;
+import com.myHotel.service.OwnerService;
+import com.myHotel.service.UserService;
 import com.myHotel.service.WorkerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,6 +24,10 @@ import javax.validation.Valid;
 public class MyWorkerController {
 
     private final WorkerService workerService;
+
+    private final OwnerService ownerService;
+
+    private final UserService userService;
 
     @GetMapping("/home")
     public ModelAndView homePage(ModelAndView model, @RequestParam(defaultValue = "User") String name) {
@@ -70,30 +77,38 @@ public class MyWorkerController {
                                       @RequestParam int ex,
                                       @RequestParam String name,
                                       @RequestParam String surname,
-                                      @RequestParam String human,
                                       @RequestParam TimeType timeType,
                                       @AuthenticationPrincipal User myUser) {
-        Worker worker = workerService.findByUser(myUser);
+        Worker worker = new Worker();
         worker.setMyUser(myUser);
         worker.setEx(ex);
         worker.setName(name);
         worker.setSurname(surname);
-        switch (human) {
-            case "MAN":
-                worker.setSex(true);
-                break;
-            case "FEMALE":
-                worker.setSex(false);
-                break;
-            default:
-                return model;
-        }
-//        worker.setSex((human == "MAN") ? true : false);
         worker.setTimeType(timeType);
         model.addObject("worker", workerService.save(worker));
         model.setViewName("worker_home");
         return model;
     }
 
+    @GetMapping("/get_job")
+    public ModelAndView get_job(ModelAndView model, @AuthenticationPrincipal User user) {
+        List<User> ownerList = ownerService.findFreeWorkplace();
+        Worker worker = workerService.findByUser(user);
+        model.addObject("ownerList", ownerList);
+        model.addObject("worker", worker);
+        model.setViewName("worker_get_job");
+        return model;
+    }
+
+    @PostMapping("/get_job")
+    public String get_job_owner(ModelAndView model,
+                                @RequestParam(name = "owner") Long ownerId,
+                                @AuthenticationPrincipal User myUser) {
+        Worker worker = workerService.findByUser(myUser);
+        User owner = userService.findUserById(ownerId);
+        workerService.addOwner(owner,worker);
+        ownerService.addNewWorker(owner);
+        return "redirect:/worker/home";
+    }
 
 }

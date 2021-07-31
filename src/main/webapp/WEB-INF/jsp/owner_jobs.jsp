@@ -1,3 +1,4 @@
+
 <%@ page import="com.myHotel.entity.Hotel" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
@@ -27,6 +28,9 @@
 
 <div>
     <a href="/owner/del_job">Убрать одно место</a>
+</div>
+<div>
+    <a href="/owner/give_job">Добавить одно место</a>
 </div>
 <div>
     <a href="/owner/home">Назад</a>

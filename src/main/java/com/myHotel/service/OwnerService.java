@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Data
 @AllArgsConstructor
@@ -38,6 +41,16 @@ public class OwnerService {
         owner.delWorkplace();
         ownerRepository.save(owner);
         return owner;
+    }
+
+
+    public List<User> findFreeWorkplace() {
+        List<Owner> ownerList = ownerRepository.findByFreeWorkplaceGreaterThan(0);
+        List<User> userList = new ArrayList<>();
+        for (Owner owner : ownerList) {
+            userList.add(owner.getMyUser());
+        }
+        return userList;
     }
 
 }
