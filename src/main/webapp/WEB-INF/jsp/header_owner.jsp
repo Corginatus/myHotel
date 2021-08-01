@@ -31,7 +31,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/owner/workers">My workers</a></li>
-                        <li><a class="dropdown-item" href="/owner/get_worker">Get an employee </a></li>
+<%--                        <li><a class="dropdown-item" href="/owner/get_worker">Get an employee </a></li>--%>
                         <li><a class="dropdown-item" href="/owner/owner_jobs">My workplaces </a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/owner/give_job">Give a job</a></li>

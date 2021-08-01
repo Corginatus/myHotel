@@ -90,13 +90,26 @@ public class MyWorkerController {
         return model;
     }
 
+    @PostMapping("/kill_job")
+    public String del_job_owner(ModelAndView model,
+                                @RequestParam(name = "owner") String ownerName,
+                                @AuthenticationPrincipal User worker) {
+        Worker myWorker = workerService.findByUser(worker);
+        workerService.delOwner(myWorker);
+        User owner = userService.findByUsername(ownerName);
+        ownerService.delWorker(owner);
+        return "redirect:/worker/home";
+    }
+
     @GetMapping("/get_job")
     public ModelAndView get_job(ModelAndView model, @AuthenticationPrincipal User user) {
+        model.setViewName("worker_get_job");
         List<User> ownerList = ownerService.findFreeWorkplace();
         Worker worker = workerService.findByUser(user);
+        if (worker == null) model.setViewName("worker_new_info");
         model.addObject("ownerList", ownerList);
         model.addObject("worker", worker);
-        model.setViewName("worker_get_job");
+
         return model;
     }
 
@@ -109,6 +122,16 @@ public class MyWorkerController {
         workerService.addOwner(owner,worker);
         ownerService.addNewWorker(owner);
         return "redirect:/worker/home";
+    }
+
+    @GetMapping("/hotel_info")
+    public String hotel_info(){
+        return "worker_info";
+    }
+
+    @GetMapping("/hotel_task")
+    public String hotel_task(){
+        return "worker_task";
     }
 
 }

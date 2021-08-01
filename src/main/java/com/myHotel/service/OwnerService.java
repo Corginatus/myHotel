@@ -36,13 +36,18 @@ public class OwnerService {
         return owner;
     }
 
+    public void delWorker(User user) {
+        Owner owner = ownerRepository.findOwnerByMyUser(user);
+        owner.delWorker();
+        ownerRepository.save(owner);
+    }
+
     public Owner delWorkplace(User user) {
         Owner owner = ownerRepository.findOwnerByMyUser(user);
         owner.delWorkplace();
         ownerRepository.save(owner);
         return owner;
     }
-
 
     public List<User> findFreeWorkplace() {
         List<Owner> ownerList = ownerRepository.findByFreeWorkplaceGreaterThan(0);

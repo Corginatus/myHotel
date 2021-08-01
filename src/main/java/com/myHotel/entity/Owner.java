@@ -19,9 +19,9 @@ public class Owner {
     @OneToOne
     private User myUser;
 
-    private short workplace=0;
+    private int workplace=0;
 
-    private short freeWorkplace=0;
+    private int freeWorkplace=0;
 
     public void addNewWorkplace() {
         this.freeWorkplace++;
@@ -35,6 +35,10 @@ public class Owner {
 
     public void addNewWorker() {
         this.freeWorkplace--;
+    }
+
+    public void delWorker() {
+        this.freeWorkplace++;
     }
 
 }

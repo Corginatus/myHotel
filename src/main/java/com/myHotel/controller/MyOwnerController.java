@@ -3,10 +3,8 @@ package com.myHotel.controller;
 import com.myHotel.entity.Hotel;
 import com.myHotel.entity.Owner;
 import com.myHotel.entity.User;
-import com.myHotel.service.HotelInfoService;
-import com.myHotel.service.HotelService;
-import com.myHotel.service.OwnerService;
-import com.myHotel.service.UserService;
+import com.myHotel.entity.Worker;
+import com.myHotel.service.*;
 //import com.sun.org.apache.xpath.internal.operations.Mod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,12 +25,10 @@ import java.util.List;
 public class MyOwnerController {
 
     private final HotelService hotelService;
-
     private final HotelInfoService hotelInfoService;
-
     private final UserService userService;
-
     private final OwnerService ownerService;
+    private final WorkerService workerService;
 
     @GetMapping("/home")
     public ModelAndView homePage(ModelAndView model, @RequestParam(defaultValue = "User") String name) {
@@ -125,6 +121,26 @@ public class MyOwnerController {
         model.addObject("hotelList", hotelList);
         model.setViewName("owner_hotel_list");
         return model;
+    }
+
+    @GetMapping("/workers")
+    public ModelAndView del_job(ModelAndView model, @AuthenticationPrincipal User user) {
+        List<User> workerList = workerService.findByEmployer(user);
+        model.addObject("workerList", workerList);
+        model.setViewName("owner_workers");
+        return model;
+    }
+
+    @PostMapping("/workers")
+    public String del_job_owner(ModelAndView model,
+                                @RequestParam(name = "worker") Long workerId,
+                                @AuthenticationPrincipal User myUser) {
+
+        User worker = userService.findUserById(workerId);
+        Worker myWorker = workerService.findByUser(worker);
+        workerService.delOwner(myWorker);
+        ownerService.delWorker(myUser);
+        return "redirect:/owner/home";
     }
 
 }

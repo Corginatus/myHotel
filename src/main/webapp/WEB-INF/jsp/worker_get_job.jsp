@@ -13,16 +13,17 @@
 
 <body>
 <div>
-<%--    <c:if test="${worker.isEmployer()}">--%>
-<%--        <td>${worker.getEmployer().getUsername()}</td>--%>
-<%--        <td>--%>
-<%--            <form action="/worker/kill_job" method="post">--%>
-<%--                <input type="hidden" name="worker" value="${worker}"/>--%>
-<%--                <button type="submit">Уволиться</button>--%>
-<%--            </form>--%>
-<%--        </td>--%>
-<%--    </c:if>--%>
-<%--    <c:if test="${!worker.isEmployer()}">--%>
+    <c:if test="${worker.getEmployer() != null}">
+        <td>${worker.getEmployer().getUsername()}</td>
+        <td>
+            <form action="/worker/kill_job" method="post">
+                <input type="hidden" name="worker" value="${worker.getId()}"/>
+                <input type="hidden" name="owner" value="${worker.getEmployer().getUsername()}"/>
+                <button type="submit">Уволиться</button>
+            </form>
+        </td>
+    </c:if>
+    <c:if test="${worker.getEmployer() == null}">
     <table>
         <thead>
         <th>Available jobs</th>
@@ -39,7 +40,7 @@
             </tr>
         </c:forEach>
     </table>
-    <%--    </c:if>--%>
+    </c:if>
     <a href="/worker/home">Назад</a>
 </div>
 </body>
